@@ -56,17 +56,18 @@ if __name__ == "__main__":
 
     # Generate and print the unique signature
     unique_signature = generate_random_signature()
-    print(colored(f'Your unique Solar Software Signature for this session is: {unique_signature}', 'yellow'))
+    print(colored(f'Your unique Solar Software Signature for this session is: {unique_signature}', 'red'))
 
     print(colored('''
 
-  _    _   _ _   _    _    ____     _     ___ _____ _____ 
- | |  | | | | \ | |  / \  |  _ \   | |   |_ _|_   _| ____|
- | |  | | | |  \| | / _ \ | |_) |  | |    | |  | | |  _|  
- | |__| |_| | |\  |/ ___ \|  _ <   | |___ | |  | | | |___ 
- |_____\___/|_| \_/_/   \_\_| \_\  |_____|___| |_| |_____|
+  ____        _            
+/ ___|  ___ | | __ _ _ __ 
+\___ \ / _ \| |/ _` | '__|
+ ___) | (_) | | (_| | |   
+|____/ \___/|_|\__,_|_|   
+ 
                                                                          
-(Neural Network Aimbot)''', "green"))
+(Neural Network Aimbot)''', "yellow"))
     
     path_exists = os.path.exists("lib/config/config.json")
     if not path_exists or ("setup" in sys.argv):
