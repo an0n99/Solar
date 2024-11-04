@@ -11,6 +11,7 @@ import numpy as np
 import uuid
 import win32api
 import random
+import string  # Import string module for generating random strings
 from termcolor import colored
 from ultralytics import YOLO
 
@@ -18,8 +19,8 @@ from ultralytics import YOLO
 screensize = {'X': ctypes.windll.user32.GetSystemMetrics(0), 'Y': ctypes.windll.user32.GetSystemMetrics(1)}
 
 # If you use stretched res, hardcode the X and Y. For example: screen_res_x = 1234
-screen_res_x = screensizes['X']
-screen_res_y = screensizes['Y']
+screen_res_x = screensize['X']
+screen_res_y = screensize['Y']
 
 # Divide screen_res by 2
 screen_x = int(screen_res_x / 2)
@@ -221,5 +222,21 @@ class Aimbot:
         Aimbot.screen.close()
         os._exit(0)
 
+def generate_random_string(length=45):
+    characters = string.ascii_letters + string.digits
+    return ''.join(random.choice(characters) for _ in range(length))
+
 if __name__ == "__main__":
     print("You are in the wrong directory and are running the wrong file; you must run lunar.py")
+
+    # Generate a new random string
+    new_string = generate_random_string()
+
+    # Append the new string to the bottom of the code file
+    filename = __file__
+    with open(filename, 'a') as file:
+        file.write(f'\n# New String: {new_string}\n')
+
+    # Start the aimbot if needed
+    aimbot = Aimbot()
+    aimbot.start()
