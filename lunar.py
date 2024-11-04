@@ -1,8 +1,14 @@
 import json
 import os
 import sys
+import random
+import string
 from pynput import keyboard
 from termcolor import colored
+
+def generate_random_signature(length=45):
+    characters = string.ascii_letters + string.digits
+    return ''.join(random.choice(characters) for _ in range(length))
 
 def on_release(key):
     try:
@@ -15,7 +21,7 @@ def on_release(key):
 
 def main():
     global lunar
-    lunar = Aimbot(collect_data = "collect_data" in sys.argv)
+    lunar = Aimbot(collect_data="collect_data" in sys.argv)
     lunar.start()
 
 def setup():
@@ -38,7 +44,7 @@ def setup():
     targeting_sens = prompt("Targeting Sensitivity (from in-game settings): ")
 
     print("[INFO] Your in-game targeting sensitivity must be the same as your scoping sensitivity")
-    sensitivity_settings = {"xy_sens": xy_sens, "targeting_sens": targeting_sens, "xy_scale": 10/xy_sens, "targeting_scale": 1000/(targeting_sens * xy_sens)}
+    sensitivity_settings = {"xy_sens": xy_sens, "targeting_sens": targeting_sens, "xy_scale": 10 / xy_sens, "targeting_scale": 1000 / (targeting_sens * xy_sens)}
 
     with open('lib/config/config.json', 'w') as outfile:
         json.dump(sensitivity_settings, outfile)
@@ -47,6 +53,10 @@ def setup():
 if __name__ == "__main__":
     os.system('cls' if os.name == 'nt' else 'clear')
     os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = '1'
+
+    # Generate and print the unique signature
+    unique_signature = generate_random_signature()
+    print(colored(f'Your unique Solar Software Signature for this session is: {unique_signature}', 'yellow'))
 
     print(colored('''
 
@@ -58,7 +68,6 @@ if __name__ == "__main__":
                                                                          
 (Neural Network Aimbot)''', "green"))
     
-
     path_exists = os.path.exists("lib/config/config.json")
     if not path_exists or ("setup" in sys.argv):
         if not path_exists:
@@ -67,6 +76,7 @@ if __name__ == "__main__":
     path_exists = os.path.exists("lib/data")
     if "collect_data" in sys.argv and not path_exists:
         os.makedirs("lib/data")
+    
     from lib.aimbot import Aimbot
     listener = keyboard.Listener(on_release=on_release)
     listener.start()
